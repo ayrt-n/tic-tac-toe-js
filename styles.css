@@ -1,0 +1,16 @@
+.game-container {
+  margin: 0 auto;
+  width: 400px;
+  height: 400px;
+  background-color: black;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.grid-item {
+  background-color: white;
+  font-size: 5rem;
+}
