@@ -1,6 +1,7 @@
 // Doucment elements
 const gameContainer = document.getElementById("game-container");
 const resetButton = document.getElementById("reset-button");
+const startGameButton = document.getElementById("start-game-button")
 
 // Event listeners
 gameContainer.addEventListener("click", (e) => {
@@ -13,7 +14,18 @@ gameContainer.addEventListener("click", (e) => {
 
 resetButton.addEventListener("click", () => {
   gameController.resetGame();
-})
+});
+
+startGameButton.addEventListener("click", () => {
+  const playerForm = document.getElementById("player-form")
+  let player1 = playerForm.elements["player1"].value;
+  let player2 = playerForm.elements["player2"].value;
+
+  console.log(player1)
+  console.log(player2)
+
+  gameController.setPlayers(player1, player2)
+});
 
 // Gameboard module to keep track of current state of board
 const gameBoard = (() => {
@@ -54,18 +66,29 @@ const gameBoard = (() => {
   return { placeMarker, isSpotEmpty, isBoardFilled, hasThreeInRow, reset };
 })();
 
+// Players factory for creating players
+const Player = (name, marker) => {
+  return { name, marker };
+};
+
 // Game flow module to keep track of and control the flow of the game
 const gameController = (() => {
-  let player1 = "x"
-  let player2 = "o"
+  let player1 = { name: "P1", marker: "X"}
+  let player2 = { name: "P2", marker: "O" }
   let currentPlayer = player1;
   let gameOver = false;
 
+  const setPlayers = (p1, p2) => {
+    player1 = Player(p1, "X");
+    player2 = Player(p2, "O");
+    currentPlayer = player1;
+  };
+
   const playerTurn = (index) => {
     if (gameBoard.isSpotEmpty(index)) {
-      gameBoard.placeMarker(currentPlayer, index);
-      displayController.placeMarker(currentPlayer, index);
-      checkGameState(currentPlayer);
+      gameBoard.placeMarker(currentPlayer.marker, index);
+      displayController.placeMarker(currentPlayer.marker, index);
+      checkGameState(currentPlayer.marker);
       switchMarker();
     }
   };
@@ -73,10 +96,10 @@ const gameController = (() => {
   const checkGameState = (marker) => {
     if (gameBoard.hasThreeInRow(marker)) {
       gameOver = true
-      console.log("Winner")
+      console.log(`${currentPlayer.name} wins!`)
     } else if (gameBoard.isBoardFilled()) {
       gameOver = true
-      console.log('No winner')
+      console.log('Draw!')
     } else {
       console.log('No winner yet')
     }
@@ -101,7 +124,7 @@ const gameController = (() => {
     displayController.reset();
   };
 
-  return { playerTurn, isGameOver, resetGame };
+  return { playerTurn, isGameOver, resetGame, setPlayers };
 })();
 
 // Display controller to build and update the DOM through the game
@@ -131,10 +154,6 @@ const displayController = (() => {
   return { buildNewGameBoard, placeMarker, reset }
 })();
 
-// Players factory for creating players
-const Player = (name, marker) => {
-  return { name, marker };
-};
 
 let playerX = Player("Ayrton", "×")
 let playerY = Player("Vicky", "ဝ")
