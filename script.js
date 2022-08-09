@@ -3,7 +3,7 @@ const gameContainer = document.getElementById("game-container");
 
 // Event listeners
 gameContainer.addEventListener("click", (e) => {
-  if (e.target.classList.contains("grid-item")) {
+  if (e.target.classList.contains("grid-item") && !gameController.isGameOver()) {
     const cellIndex = e.target.getAttribute("data-cell-index");
 
     gameController.playerTurn(cellIndex);
@@ -45,8 +45,9 @@ const gameBoard = (() => {
 
 // Game flow module to keep track of and control the flow of the game
 const gameController = (() => {
-  let currentPlayer = "x"
-  let notCurrentPlayer = "o"
+  let currentPlayer = "x";
+  let notCurrentPlayer = "o";
+  let gameOver = false;
 
   const playerTurn = (index) => {
     if (gameBoard.isSpotEmpty(index)) {
@@ -59,8 +60,10 @@ const gameController = (() => {
 
   const checkGameState = (marker) => {
     if (gameBoard.hasThreeInRow(marker)) {
+      gameOver = true
       console.log("Winner")
     } else if (gameBoard.isBoardFilled()) {
+      gameOver = true
       console.log('No winner')
     } else {
       console.log('No winner yet')
@@ -71,11 +74,15 @@ const gameController = (() => {
     [currentPlayer, notCurrentPlayer] = [notCurrentPlayer, currentPlayer]
   }
 
-  return { playerTurn };
+  const isGameOver = () => {
+    return gameOver;
+  }
+
+  return { playerTurn, isGameOver };
 })();
 
 // Display controller to build and update the DOM through the game
-const displayController = ((gameBoard) => {
+const displayController = (() => {
   const buildNewGameBoard = () => {
     for (let i = 0; i < 9; i++) {
       const gameCell = document.createElement("div");
@@ -92,7 +99,7 @@ const displayController = ((gameBoard) => {
   };
 
   return { buildNewGameBoard, placeMarker }
-})(gameBoard);
+})();
 
 // Players factory for creating players
 const Player = (name, marker) => {
