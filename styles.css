@@ -28,6 +28,10 @@ body {
   text-align: start;
 }
 
+.is-hidden {
+  display: none;
+}
+
 .circle {
   width: 100%;
   height: 100%;
