@@ -1,3 +1,7 @@
+body {
+  min-height: 100vh;
+}
+
 .game-container {
   margin: 0 auto;
   width: 400px;
@@ -13,4 +17,14 @@
 .grid-item {
   background-color: white;
   font-size: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.player-form {
+  width: 600px;
+  margin: 0 auto;
+  text-align: start;
+}
+
