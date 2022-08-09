@@ -1,5 +1,6 @@
 // Doucment elements
 const gameContainer = document.getElementById("game-container");
+const resetButton = document.getElementById("reset-button");
 
 // Event listeners
 gameContainer.addEventListener("click", (e) => {
@@ -9,6 +10,10 @@ gameContainer.addEventListener("click", (e) => {
     gameController.playerTurn(cellIndex);
   }
 });
+
+resetButton.addEventListener("click", () => {
+  gameController.resetGame();
+})
 
 // Gameboard module to keep track of current state of board
 const gameBoard = (() => {
@@ -39,14 +44,21 @@ const gameBoard = (() => {
 
     return false;
   };
+
+  const reset = () => {
+    for (let i = 0; i < board.length; i++) {
+      board[i] = "";
+    }
+  }
   
-  return { placeMarker, isSpotEmpty, isBoardFilled, hasThreeInRow };
+  return { placeMarker, isSpotEmpty, isBoardFilled, hasThreeInRow, reset };
 })();
 
 // Game flow module to keep track of and control the flow of the game
 const gameController = (() => {
-  let currentPlayer = "x";
-  let notCurrentPlayer = "o";
+  let player1 = "x"
+  let player2 = "o"
+  let currentPlayer = player1;
   let gameOver = false;
 
   const playerTurn = (index) => {
@@ -68,17 +80,28 @@ const gameController = (() => {
     } else {
       console.log('No winner yet')
     }
-  }
+  };
 
   const switchMarker = () => {
-    [currentPlayer, notCurrentPlayer] = [notCurrentPlayer, currentPlayer]
-  }
+    if (currentPlayer === player1) {
+      currentPlayer = player2;
+    } else {
+      currentPlayer = player1;
+    }
+  };
 
   const isGameOver = () => {
     return gameOver;
-  }
+  };
 
-  return { playerTurn, isGameOver };
+  const resetGame = () => {
+    currentPlayer = player1;
+    gameOver = false;
+    gameBoard.reset();
+    displayController.reset();
+  };
+
+  return { playerTurn, isGameOver, resetGame };
 })();
 
 // Display controller to build and update the DOM through the game
@@ -98,7 +121,14 @@ const displayController = (() => {
     gameCell.innerHTML = marker
   };
 
-  return { buildNewGameBoard, placeMarker }
+  const reset = () => {
+    const gameCells = document.querySelectorAll("div.grid-item")
+    gameCells.forEach(cell => {
+      cell.innerHTML = ""
+    })
+  };
+
+  return { buildNewGameBoard, placeMarker, reset }
 })();
 
 // Players factory for creating players
