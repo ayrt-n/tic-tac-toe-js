@@ -101,6 +101,7 @@ const gameController = (() => {
   const setPlayers = (p1, p2) => {
     player1 = Player(p1, purpleMarker);
     player2 = Player(p2, yellowMarker);
+    displayController.setScoreboardNames(player1, player2);
     currentPlayer = player1;
   };
 
@@ -178,7 +179,15 @@ const displayController = (() => {
     gameNotificationDiv.classList.toggle("is-hidden");
   };
 
-  return { buildNewGameBoard, placeMarker, reset, gameNotification }
+  const setScoreboardNames = (p1, p2) => {
+    const playerOneName = document.getElementById("p1-name");
+    const playerTwoName = document.getElementById("p2-name");
+
+    playerOneName.innerHTML = p1.name;
+    playerTwoName.innerHTML = p2.name;
+  };
+
+  return { buildNewGameBoard, placeMarker, reset, gameNotification, setScoreboardNames }
 })();
 
 displayController.buildNewGameBoard()
