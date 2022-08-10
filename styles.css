@@ -1,5 +1,6 @@
 body {
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .game-container {
@@ -20,10 +21,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .player-form {
-  width: 600px;
+  width: 90%;
+  max-width: 800px;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
@@ -102,8 +105,8 @@ body {
 }
 
 .marker {
-  width: 70px;
-  height: 70px;
+  width: 70%;
+  height: 70%;
   position: absolute;
 }
 
