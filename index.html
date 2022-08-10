@@ -10,11 +10,12 @@
   </head>
   <body>
     <div class="container has-text-centered p-5">
+      <h1 class="title mb-6">Tic Tac Toe</h1>
+
       <!-- Form to start a new game -->
       <div class="player-form">
         <form id="player-form">
           <div class="card p-5">
-            <h1 class="title">Tic Tac Toe</h1>
             <h2 class="subtitle"> Enter your names and start game!</h2>
             <div class="field players">
               <label for="player1" class="label">Player 1</label>
@@ -48,7 +49,7 @@
           <div class="column">
             <div class="game-container mb-6" id="game-container"></div>
             <div class="card scoreboard">
-              <h2 class="subtitle">Scoreboard</h2>
+              <h1 class="title">Scoreboard</h1>
               <div class="player-grid">
                   <div class="marker preview"><div class="circle shadow"></div><div class="circle"><div class="circle shine"></div></div></div>
                   <p class="player-name" id="p1-name">Ayrton</p>
@@ -58,9 +59,7 @@
                   <p class="player-score" id="p2-score">0</p>
               </div>
             </div>
-            <div class="message is-success game-notification is-hidden" id="game-notification">
-              <div class="message-body"></div>
-            </div>
+            <div class="is-size-5 mt-4 is-hidden" id="game-notification">Hi</div>
           </div>
 
           <!-- Column to hold new game button -->
