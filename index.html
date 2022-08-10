@@ -18,13 +18,13 @@
           <div class="field players">
             <label for="player1" class="label">Player 1</label>
             <div class="control">
-              <input type="text" name="player1" id="player1" class="input">
+              <input type="text" name="player1" id="player1" class="input" value="P1">
             </div>
           </div>
           <div class="field players">
             <label for="player2" class="label">Player 2</label>
             <div class="control">
-              <input type="text" name="player2" id="player2" class="input">
+              <input type="text" name="player2" id="player2" class="input" value="P2">
             </div>
           </div>
           <div class="field">
@@ -35,19 +35,19 @@
         </form>
       </div>
       
-      <!-- Div to hold game notifications -->
-      <div class="message is-success game-notification is-hidden" id="game-notification">
-        <div class="message-body">Congratulations!</div>
-      </div>
-
-      <!-- Div to hold tic tac toe board -->
-      <div class="game-container" id="game-container"></div>
-      <a class="button" id="reset-button">Reset</a>
-
-      <div class="marker">
-        <div class="circle shadow"></div>
-        <div class="circle">
-          <div class="circle shine"></div>
+      <div class="game-wrapper" id="game-wrapper">
+        <!-- Div to hold game notifications -->
+        <div class="message is-success game-notification is-hidden" id="game-notification">
+          <div class="message-body">Congratulations!</div>
+        </div>
+        <!-- Div to hold tic tac toe board -->
+        <div class="game-container" id="game-container"></div>
+        <a class="button" id="reset-button">Reset</a>
+        <div class="marker">
+          <div class="circle shadow"></div>
+          <div class="circle">
+            <div class="circle shine"></div>
+          </div>
         </div>
       </div>
     </div>

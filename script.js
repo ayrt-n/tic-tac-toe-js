@@ -1,5 +1,6 @@
 // Doucment elements
 const gameContainer = document.getElementById("game-container");
+const gameWrapper = document.getElementsByTagName("game-wrapper")
 const resetButton = document.getElementById("reset-button");
 const startGameButton = document.getElementById("start-game-button")
 const gameNotificationDiv = document.getElementById("game-notification")
@@ -22,10 +23,9 @@ startGameButton.addEventListener("click", () => {
   let player1 = playerForm.elements["player1"].value;
   let player2 = playerForm.elements["player2"].value;
 
-  console.log(player1)
-  console.log(player2)
-
-  gameController.setPlayers(player1, player2)
+  gameController.setPlayers(player1, player2);
+  playerForm.parentElement.classList.toggle("submit");
+  gameContainer.parentElement.classList.toggle("show");
 });
 
 // Gameboard module to keep track of current state of board
