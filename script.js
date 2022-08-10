@@ -78,7 +78,7 @@ const gameBoard = (() => {
 
 // Players factory for creating players
 const Player = (name, marker) => {
-  const winCount = 0;
+  let winCount = 0;
 
   const addWin = () => {
     winCount++;
@@ -117,6 +117,7 @@ const gameController = (() => {
   const checkGameState = (marker) => {
     if (gameBoard.hasThreeInRow(marker)) {
       gameOver = true
+      updateScore();
       displayController.gameNotification(`${currentPlayer.name} wins!`)
     } else if (gameBoard.isBoardFilled()) {
       gameOver = true
@@ -124,6 +125,15 @@ const gameController = (() => {
     } else {
       console.log('No winner yet')
     }
+  };
+
+  const updateScore = () => {
+    if (currentPlayer === player1) {
+      player1.addWin();
+    } else {
+      player2.addWin();
+    }
+    displayController.updateScores(player1, player2);
   };
 
   const switchMarker = () => {
@@ -171,6 +181,9 @@ const displayController = (() => {
       cell.innerHTML = ""
     })
     gameNotificationDiv.classList.add("is-hidden");
+    
+    playerOneScore.innerHTML = 0;
+    playerTwoScore.innerHTML = 0;
   };
 
   const gameNotification = (message) => {
@@ -180,14 +193,21 @@ const displayController = (() => {
   };
 
   const setScoreboardNames = (p1, p2) => {
-    const playerOneName = document.getElementById("p1-name");
-    const playerTwoName = document.getElementById("p2-name");
-
     playerOneName.innerHTML = p1.name;
     playerTwoName.innerHTML = p2.name;
   };
 
-  return { buildNewGameBoard, placeMarker, reset, gameNotification, setScoreboardNames }
+  const updateScores = (p1, p2) => {
+    playerOneScore.innerHTML = p1.getWinCount();
+    playerTwoScore.innerHTML = p2.getWinCount();
+  };
+
+  const playerOneName = document.getElementById("p1-name");
+  const playerTwoName = document.getElementById("p2-name"); 
+  const playerOneScore = document.getElementById("p1-score");
+  const playerTwoScore = document.getElementById("p2-score");
+
+  return { buildNewGameBoard, placeMarker, reset, gameNotification, setScoreboardNames, updateScores }
 })();
 
 displayController.buildNewGameBoard()
