@@ -117,10 +117,10 @@ const gameController = (() => {
     if (gameBoard.hasThreeInRow(marker)) {
       gameOver = true
       updateScore();
-      displayController.gameNotification(`${currentPlayer.name} wins!`)
+      displayController.gameNotification(`🎉 Congratulations! ${currentPlayer.name} wins! 🎉`)
     } else if (gameBoard.isBoardFilled()) {
       gameOver = true
-      displayController.gameNotification("Draw!")
+      displayController.gameNotification("🤷🏻‍♂️ Draw game! Nobody wins... 🤷🏻‍♂️")
     } else {
       console.log('No winner yet')
     }
@@ -196,8 +196,7 @@ const displayController = (() => {
   };
 
   const gameNotification = (message) => {
-    const notification = gameNotificationDiv.getElementsByClassName("message-body")[0];
-    notification.innerHTML = message;
+    gameNotificationDiv.innerHTML = message;
     gameNotificationDiv.classList.toggle("is-hidden");
   };
 
