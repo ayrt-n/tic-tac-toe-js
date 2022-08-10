@@ -1,9 +1,13 @@
 // Doucment elements
 const gameContainer = document.getElementById("game-container");
-const gameWrapper = document.getElementsByTagName("game-wrapper")
+const gameWrapper = document.getElementById("game-wrapper");
 const resetButton = document.getElementById("reset-button");
 const startGameButton = document.getElementById("start-game-button")
 const gameNotificationDiv = document.getElementById("game-notification")
+const purpleMarker = '<div class="marker"><div class="circle shadow"></div><div class="circle"><div class="circle shine"></div></div></div>'
+const yellowMarker = '<div class="marker yellow"><div class="circle shadow"></div><div class="circle"><div class="circle shine"></div></div></div>'
+const backButton = document.getElementById("back-button")
+const playerForm = document.getElementById("player-form")
 
 // Event listeners
 gameContainer.addEventListener("click", (e) => {
@@ -19,14 +23,19 @@ resetButton.addEventListener("click", () => {
 });
 
 startGameButton.addEventListener("click", () => {
-  const playerForm = document.getElementById("player-form")
   let player1 = playerForm.elements["player1"].value;
   let player2 = playerForm.elements["player2"].value;
 
   gameController.setPlayers(player1, player2);
   playerForm.parentElement.classList.toggle("submit");
-  gameContainer.parentElement.classList.toggle("show");
+  gameWrapper.classList.toggle("show");
 });
+
+backButton.addEventListener("click", () => {
+  playerForm.parentElement.classList.toggle("submit");
+  gameWrapper.classList.toggle("show");
+  gameController.resetGame()
+})
 
 // Gameboard module to keep track of current state of board
 const gameBoard = (() => {
@@ -69,19 +78,29 @@ const gameBoard = (() => {
 
 // Players factory for creating players
 const Player = (name, marker) => {
-  return { name, marker };
+  const winCount = 0;
+
+  const addWin = () => {
+    winCount++;
+  };
+
+  const getWinCount = () => {
+    return winCount;
+  };
+
+  return { name, marker, addWin, getWinCount };
 };
 
 // Game flow module to keep track of and control the flow of the game
 const gameController = (() => {
-  let player1 = { name: "P1", marker: "X"}
-  let player2 = { name: "P2", marker: "O" }
+  let player1 = { name: "P1", marker: purpleMarker}
+  let player2 = { name: "P2", marker: yellowMarker }
   let currentPlayer = player1;
   let gameOver = false;
 
   const setPlayers = (p1, p2) => {
-    player1 = Player(p1, "X");
-    player2 = Player(p2, "O");
+    player1 = Player(p1, purpleMarker);
+    player2 = Player(p2, yellowMarker);
     currentPlayer = player1;
   };
 
@@ -100,7 +119,7 @@ const gameController = (() => {
       displayController.gameNotification(`${currentPlayer.name} wins!`)
     } else if (gameBoard.isBoardFilled()) {
       gameOver = true
-      console.log('Draw!')
+      displayController.gameNotification("Draw!")
     } else {
       console.log('No winner yet')
     }
@@ -162,7 +181,4 @@ const displayController = (() => {
   return { buildNewGameBoard, placeMarker, reset, gameNotification }
 })();
 
-
-let playerX = Player("Ayrton", "×")
-let playerY = Player("Vicky", "ဝ")
 displayController.buildNewGameBoard()
