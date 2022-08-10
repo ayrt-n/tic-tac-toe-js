@@ -10,43 +10,62 @@
   </head>
   <body>
     <div class="container has-text-centered p-5">
-      <h1 class="title">Tic Tac Toe</h1>
-      
       <!-- Form to start a new game -->
       <div class="player-form">
         <form id="player-form">
-          <div class="field players">
-            <label for="player1" class="label">Player 1</label>
-            <div class="control">
-              <input type="text" name="player1" id="player1" class="input" value="P1">
+          <div class="card p-5">
+            <h1 class="title">Tic Tac Toe</h1>
+            <h2 class="subtitle"> Enter your names and start game!</h2>
+            <div class="field players">
+              <label for="player1" class="label">Player 1</label>
+              <div class="control">
+                <input type="text" name="player1" id="player1" class="input" value="P1">
+              </div>
             </div>
-          </div>
-          <div class="field players">
-            <label for="player2" class="label">Player 2</label>
-            <div class="control">
-              <input type="text" name="player2" id="player2" class="input" value="P2">
+            <div class="field players">
+              <label for="player2" class="label">Player 2</label>
+              <div class="control">
+                <input type="text" name="player2" id="player2" class="input" value="P2">
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <a class="button is-success" id="start-game-button">Start Game</a>
+            <div class="field">
+              <div class="control">
+                <a class="button is-success" id="start-game-button">Start Game</a>
+              </div>
             </div>
           </div>
         </form>
       </div>
       
       <div class="game-wrapper" id="game-wrapper">
-        <!-- Div to hold game notifications -->
-        <div class="message is-success game-notification is-hidden" id="game-notification">
-          <div class="message-body">Congratulations!</div>
-        </div>
-        <!-- Div to hold tic tac toe board -->
-        <div class="game-container" id="game-container"></div>
-        <a class="button" id="reset-button">Reset</a>
-        <div class="marker">
-          <div class="circle shadow"></div>
-          <div class="circle">
-            <div class="circle shine"></div>
+        <div class="columns">
+          <!-- Back to player select button -->
+          <div class="column back">
+            <a class="button" id="back-button">←</a>
+          </div>
+
+          <!-- Div to hold tic tac toe board -->
+          <div class="column">
+            <div class="game-container mb-6" id="game-container"></div>
+            <a class="button" id="reset-button">New game</a>
+          </div>
+
+          <!-- Div to hold game notifications -->
+          <div class="column">
+            <div class="card scoreboard">
+              <h2 class="subtitle">Scoreboard</h2>
+              <div class="player-grid">
+                  <div class="marker preview"><div class="circle shadow"></div><div class="circle"><div class="circle shine"></div></div></div>
+                  <p class="player-name">Ayrton</p>
+                  <p class="player-score">0</p>
+                  <div class="marker yellow preview"><div class="circle shadow"></div><div class="circle"><div class="circle shine"></div></div></div>
+                  <p class="player-name">Ayrton</p>
+                  <p class="player-score">0</p>
+              </div>
+            </div>
+            <div class="message is-success game-notification is-hidden" id="game-notification">
+              <div class="message-body">Congratulations!</div>
+            </div>
           </div>
         </div>
       </div>
