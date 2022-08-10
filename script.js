@@ -1,9 +1,8 @@
 // Doucment elements
 const gameContainer = document.getElementById("game-container");
 const gameWrapper = document.getElementById("game-wrapper");
-const resetButton = document.getElementById("reset-button");
+const newGameButton = document.getElementById("new-game-button");
 const startGameButton = document.getElementById("start-game-button")
-const gameNotificationDiv = document.getElementById("game-notification")
 const purpleMarker = '<div class="marker"><div class="circle shadow"></div><div class="circle"><div class="circle shine"></div></div></div>'
 const yellowMarker = '<div class="marker yellow"><div class="circle shadow"></div><div class="circle"><div class="circle shine"></div></div></div>'
 const backButton = document.getElementById("back-button")
@@ -18,8 +17,8 @@ gameContainer.addEventListener("click", (e) => {
   }
 });
 
-resetButton.addEventListener("click", () => {
-  gameController.resetGame();
+newGameButton.addEventListener("click", () => {
+  gameController.newGame();
 });
 
 startGameButton.addEventListener("click", () => {
@@ -148,6 +147,13 @@ const gameController = (() => {
     return gameOver;
   };
 
+  const newGame = () => {
+    currentPlayer = player1;
+    gameOver = false;
+    gameBoard.reset();
+    displayController.clearGameBoard();
+  };
+
   const resetGame = () => {
     currentPlayer = player1;
     gameOver = false;
@@ -155,7 +161,7 @@ const gameController = (() => {
     displayController.reset();
   };
 
-  return { playerTurn, isGameOver, resetGame, setPlayers };
+  return { playerTurn, isGameOver, resetGame, setPlayers, newGame };
 })();
 
 // Display controller to build and update the DOM through the game
@@ -175,13 +181,16 @@ const displayController = (() => {
     gameCell.innerHTML = marker
   };
 
-  const reset = () => {
+  const clearGameBoard = () => {
     const gameCells = document.querySelectorAll("div.grid-item")
     gameCells.forEach(cell => {
       cell.innerHTML = ""
     })
     gameNotificationDiv.classList.add("is-hidden");
-    
+  };
+
+  const reset = () => {
+    clearGameBoard();
     playerOneScore.innerHTML = 0;
     playerTwoScore.innerHTML = 0;
   };
@@ -206,8 +215,9 @@ const displayController = (() => {
   const playerTwoName = document.getElementById("p2-name"); 
   const playerOneScore = document.getElementById("p1-score");
   const playerTwoScore = document.getElementById("p2-score");
+  const gameNotificationDiv = document.getElementById("game-notification")
 
-  return { buildNewGameBoard, placeMarker, reset, gameNotification, setScoreboardNames, updateScores }
+  return { buildNewGameBoard, placeMarker, clearGameBoard, reset, gameNotification, setScoreboardNames, updateScores }
 })();
 
 displayController.buildNewGameBoard()
