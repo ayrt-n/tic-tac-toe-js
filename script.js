@@ -2,6 +2,7 @@
 const gameContainer = document.getElementById("game-container");
 const resetButton = document.getElementById("reset-button");
 const startGameButton = document.getElementById("start-game-button")
+const gameNotificationDiv = document.getElementById("game-notification")
 
 // Event listeners
 gameContainer.addEventListener("click", (e) => {
@@ -96,7 +97,7 @@ const gameController = (() => {
   const checkGameState = (marker) => {
     if (gameBoard.hasThreeInRow(marker)) {
       gameOver = true
-      console.log(`${currentPlayer.name} wins!`)
+      displayController.gameNotification(`${currentPlayer.name} wins!`)
     } else if (gameBoard.isBoardFilled()) {
       gameOver = true
       console.log('Draw!')
@@ -149,9 +150,16 @@ const displayController = (() => {
     gameCells.forEach(cell => {
       cell.innerHTML = ""
     })
+    gameNotificationDiv.classList.add("is-hidden");
   };
 
-  return { buildNewGameBoard, placeMarker, reset }
+  const gameNotification = (message) => {
+    const notification = gameNotificationDiv.getElementsByClassName("message-body")[0];
+    notification.innerHTML = message;
+    gameNotificationDiv.classList.toggle("is-hidden");
+  };
+
+  return { buildNewGameBoard, placeMarker, reset, gameNotification }
 })();
 
 
