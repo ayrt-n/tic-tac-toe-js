@@ -39,19 +39,14 @@
       
       <div class="game-wrapper" id="game-wrapper">
         <div class="columns">
-          <!-- Back to player select button -->
+          <!-- Column for back to player select button -->
           <div class="column back">
             <a class="button" id="back-button">←</a>
           </div>
 
-          <!-- Div to hold tic tac toe board -->
+          <!-- Column to hold tic tac toe board and score board -->
           <div class="column">
             <div class="game-container mb-6" id="game-container"></div>
-            <a class="button" id="new-game-button">New game</a>
-          </div>
-
-          <!-- Div to hold game notifications -->
-          <div class="column">
             <div class="card scoreboard">
               <h2 class="subtitle">Scoreboard</h2>
               <div class="player-grid">
@@ -66,6 +61,11 @@
             <div class="message is-success game-notification is-hidden" id="game-notification">
               <div class="message-body"></div>
             </div>
+          </div>
+
+          <!-- Column to hold new game button -->
+          <div class="column">
+            <a class="button" id="new-game-button">New game</a>
           </div>
         </div>
       </div>
